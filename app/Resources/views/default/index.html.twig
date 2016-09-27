@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme voteForm _self %}
+
+{% block _vote_movies_widget %}
+    <div class="mabite" {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <td>
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+            </td>
+        {% endfor -%}
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if session is defined and session is not null %}
+        {{ form_start(voteForm) }}
+        <table>
+            <thead>
+                <tr>
+                    <td></td>
+                {% for movie in session.movies %}
+                    <td>{{ movie.name }}</td>
+                {% endfor %}
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voter in session|voters %}
+                    <tr>
+                        <td>{{ voter.name }}</td>
+                        {% for movie in session.movies %}
+                        <td>{{ session.hasVotedForMovie(voter, movie) }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        {{ form_widget(voteForm.userName) }}
+                        {{ form_errors(voteForm.userName) }}
+                    </td>
+                    {{ form_widget(voteForm.movies) }}
+                    <td><input type="submit"></td>
+                </tr>
+            </tbody>
+        </table>
+        {{ form_end(voteForm) }}
+
+        <a href="{{ path('movie_new') }}">Proposer un film</a>
+    {% endif %}
+
+    {% if createSessionForm is defined and createSessionForm is not null %}
+        {{ form(createSessionForm) }}
+    {% endif %}
+{% endblock %}

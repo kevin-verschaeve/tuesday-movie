@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(movieForm) }}
+        {{ form_row(movieForm.name) }}
+        {{ form_row(movieForm.image) }}
+        {{ form_row(movieForm.proposedBy) }}
+        <input type="submit">
+    {{ form_end(movieForm) }}
+
+    <a href="{{ path('homepage') }}">Retourner sur la page d'accueil</a>
+{% endblock %}

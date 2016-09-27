@@ -1,0 +1,28 @@
+services:
+    app.manager.session:
+        class: AppBundle\Manager\SessionManager
+        arguments: ['@doctrine']
+
+    app.listener.movie:
+        class: AppBundle\EventListener\MovieEventListener
+        arguments: ['@doctrine', '@session.flash_bag']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.listener.vote:
+        class: AppBundle\EventListener\VoteListener
+        arguments: ['@doctrine', '@app.manager.session']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.form_type.vote:
+        class: AppBundle\Form\VoteType
+        arguments: ['@app.manager.session']
+        tags:
+            - { name: form.type, alias: vote }
+
+    app.twig_extension.filter.session_voters:
+        class: AppBundle\Twig\Extension\SessionVotersExtension
+        arguments: ['@doctrine']
+        tags:
+            - { name: twig.extension }

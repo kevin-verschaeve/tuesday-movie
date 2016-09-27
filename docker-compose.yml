@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+    app:
+        build: docker/server
+        volumes:
+            - .:/var/www/html
+        env_file:
+            - docker/env
+    mysql:
+        image: mysql:5.7
+        env_file:
+            - docker/env
