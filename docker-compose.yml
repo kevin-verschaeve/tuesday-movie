@@ -11,3 +11,9 @@ services:
         image: mysql:5.7
         env_file:
             - docker/env
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 8181:80
+        environment:
+            - PMA_HOST=mysql
