@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Session
  *
  * @ORM\Table(name="session")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SessionRepository")
+ * @ORM\Entity
  */
 class Session
 {
@@ -111,12 +111,11 @@ class Session
 
     public function hasVotedForMovie(User $voter, Movie $movie)
     {
-        return true;
         if ($movie->getProposedBy() === $voter->getName()) {
             return true;
         }
 
-        return false;
+        return $movie->getVoters()->contains($voter);
     }
 }
 

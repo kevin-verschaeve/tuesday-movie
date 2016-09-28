@@ -20,9 +20,3 @@ services:
         arguments: ['@app.manager.session']
         tags:
             - { name: form.type, alias: vote }
-
-    app.twig_extension.filter.session_voters:
-        class: AppBundle\Twig\Extension\SessionVotersExtension
-        arguments: ['@doctrine']
-        tags:
-            - { name: twig.extension }

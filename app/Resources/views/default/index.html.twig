@@ -27,11 +27,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for voter in session|voters %}
+                {% for voter in sessionVoters %}
                     <tr>
                         <td>{{ voter.name }}</td>
                         {% for movie in session.movies %}
-                        <td>{{ session.hasVotedForMovie(voter, movie) }}</td>
+                        <td>{{ session.hasVotedForMovie(voter, movie) ? 'X' }}</td>
                         {% endfor %}
                     </tr>
                 {% endfor %}

@@ -77,6 +77,22 @@ class SessionManager
         return (new \DateTime())->format('F');
     }
 
+    public function findAllVoters(Session $session)
+    {
+        $voters = [];
+        foreach ($session->getMovies() as $movie) {
+            foreach ($movie->getVoters() as $voter) {
+                if (in_array($voter, $voters)) {
+                    continue;
+                }
+
+                $voters[] = $voter;
+            }
+        }
+
+        return $voters;
+    }
+
     public function getVoterForSession(string $userName, string $ipAddress)
     {
         // && for current session

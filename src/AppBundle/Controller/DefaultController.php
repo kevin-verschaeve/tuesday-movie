@@ -60,9 +60,12 @@ class DefaultController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
+        $session = $sessionManager->findCurrentSession();
+
         return $this->render('default/index.html.twig', [
-            'session' => $sessionManager->findCurrentSession(),
+            'session' => $session,
             'voteForm' => $voteForm->createView(),
+            'sessionVoters' => $sessionManager->findAllVoters($session),
         ]);
     }
 
