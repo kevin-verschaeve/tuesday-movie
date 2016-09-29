@@ -47,12 +47,13 @@ class DefaultController extends Controller
                 'createSessionForm' => $createSessionForm->createView()
             ]);
         }
+        $session = $sessionManager->findCurrentSession();
 
         $voteForm = $this->createForm(VoteType::class);
         $voteForm->handleRequest($request);
 
         if ($voteForm->isSubmitted() && $voteForm->isValid()) {
-            $event = new VoteEvent($voteForm->getData(), $request->getClientIp());
+            $event = new VoteEvent($session, $voteForm->getData(), $request->getClientIp());
             $this->get('event_dispatcher')->dispatch(VoteEvent::VOTE, $event);
 
             $this->addFlash('success', 'Votre vote a bien été pris en compte');
@@ -60,7 +61,6 @@ class DefaultController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        $session = $sessionManager->findCurrentSession();
 
         return $this->render('default/index.html.twig', [
             'session' => $session,

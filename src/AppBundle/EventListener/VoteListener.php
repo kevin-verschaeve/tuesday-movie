@@ -29,7 +29,7 @@ class VoteListener implements EventSubscriberInterface
     {
         $vote = $event->getVote();
 
-        $user = $this->sessionManager->getVoterForSession($vote->getUserName(), $event->getClientIp());
+        $user = $this->sessionManager->getVoterForSession($event->getSession(), $vote->getUserName(), $event->getClientIp());
 
         /** @var Movie $movie */
         foreach ($vote->getMovies() as $movie) {

@@ -93,17 +93,15 @@ class SessionManager
         return $voters;
     }
 
-    public function getVoterForSession(string $userName, string $ipAddress)
+    public function getVoterForSession(Session $session, string $userName, string $ipAddress)
     {
-        // && for current session
-//        $user = $this->doctrine->getRepository(User::class)->findOneBy([
-//            'ipAddress' => $ipAddress,
-//        ]);
-//
-//        // && !$user->hasProposed($movie)
-//        if ($user) {
-//            throw new \Exception('You cannot vote twice, sorry');
-//        }
+        $user = $this->doctrine->getRepository(User::class)->findOneBy([
+            'ipAddress' => $ipAddress,
+        ]);
+
+        if (in_array($user, $this->findAllVoters($session))) {
+            throw new \Exception('You cannot vote twice, sorry');
+        }
 
         $user = new User();
         $user->setName($userName);
