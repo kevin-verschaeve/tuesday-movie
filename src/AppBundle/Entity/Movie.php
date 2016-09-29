@@ -167,5 +167,10 @@ class Movie
 
         $this->voters->add($voter);
     }
+
+    public function removeVoter(User $voter)
+    {
+        $this->voters->removeElement($voter);
+    }
 }
 

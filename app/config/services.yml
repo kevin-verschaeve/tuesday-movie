@@ -15,7 +15,7 @@ services:
 
     app.listener.vote:
         class: AppBundle\EventListener\VoteListener
-        arguments: ['@doctrine', '@app.manager.session']
+        arguments: ['@doctrine', '@app.manager.vote']
         tags:
             - { name: kernel.event_subscriber }
 

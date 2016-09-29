@@ -6,18 +6,19 @@ use AppBundle\Entity\Movie;
 use AppBundle\Entity\User;
 use AppBundle\Event\VoteEvent;
 use AppBundle\Manager\SessionManager;
+use AppBundle\Manager\VoteManager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class VoteListener implements EventSubscriberInterface
 {
     private $doctrine;
-    private $sessionManager;
+    private $voteManager;
 
-    public function __construct(Registry $doctrine, SessionManager $sessionManager)
+    public function __construct(Registry $doctrine, VoteManager $voteManager)
     {
         $this->doctrine = $doctrine;
-        $this->sessionManager = $sessionManager;
+        $this->voteManager = $voteManager;
     }
 
     public static function getSubscribedEvents()
@@ -28,16 +29,20 @@ class VoteListener implements EventSubscriberInterface
     public function onVote(VoteEvent $event)
     {
         $vote = $event->getVote();
+        $em = $this->doctrine->getManager();
+        $user = $this->voteManager->findOrCreateVoter($vote->getUserName(), $event->getClientIp());
 
-        $user = $this->sessionManager->getVoterForSession($event->getSession(), $vote->getUserName(), $event->getClientIp());
+        $this->voteManager->resetVotes($event->getSession(), $user);
 
         /** @var Movie $movie */
         foreach ($vote->getMovies() as $movie) {
+            if (!$movie instanceof Movie) {
+                continue;
+            }
+
             $movie->addVoter($user);
         }
 
-        $em = $this->doctrine->getManager();
-        $em->persist($movie);
         $em->flush();
     }
 }
