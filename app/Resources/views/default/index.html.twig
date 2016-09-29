@@ -43,6 +43,13 @@
                     {{ form_widget(voteForm.movies) }}
                     <td><input type="submit"></td>
                 </tr>
+                <tr>
+                    <td></td>
+                    {% for movie in session.movies %}
+                    <td>{{ movie.voters.count }}</td>
+                    {% endfor %}
+                    <td></td>
+                </tr>
             </tbody>
         </table>
         {{ form_end(voteForm) }}
