@@ -1,6 +1,8 @@
 {% extends '::base.html.twig' %}
 
+{% if voteForm is defined and voteForm is not null %}
 {% form_theme voteForm _self %}
+{% endif %}
 
 {% block _vote_movies_widget %}
     <div class="mabite" {{ block('widget_container_attributes') }}>
@@ -15,44 +17,48 @@
 
 {% block body %}
     {% if session is defined and session is not null %}
-        {{ form_start(voteForm) }}
-        <table>
-            <thead>
-                <tr>
-                    <td></td>
-                {% for movie in session.movies %}
-                    <td>{{ movie.name }}</td>
-                {% endfor %}
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for voter in sessionVoters %}
+        {% if session.movies is empty %}
+            <h3>Pas encore de film ! Poposez-en un ci-dessous</h3>
+        {% else %}
+            {{ form_start(voteForm) }}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ voter.name }}</td>
-                        {% for movie in session.movies %}
-                        <td>{{ session.hasVotedForMovie(voter, movie) ? 'X' }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <td>
-                        {{ form_widget(voteForm.userName) }}
-                        {{ form_errors(voteForm.userName) }}
-                    </td>
-                    {{ form_widget(voteForm.movies) }}
-                    <td><input type="submit"></td>
-                </tr>
-                <tr>
-                    <td></td>
+                        <td></td>
                     {% for movie in session.movies %}
-                    <td>{{ movie.voters.count }}</td>
+                        <td>{{ movie.name }}</td>
                     {% endfor %}
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        {{ form_end(voteForm) }}
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voter in sessionVoters %}
+                        <tr>
+                            <td>{{ voter.name }}</td>
+                            {% for movie in session.movies %}
+                            <td>{{ session.hasVotedForMovie(voter, movie) ? 'X' }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>
+                            {{ form_widget(voteForm.userName) }}
+                            {{ form_errors(voteForm.userName) }}
+                        </td>
+                        {{ form_widget(voteForm.movies) }}
+                        <td><input type="submit"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        {% for movie in session.movies %}
+                        <td>{{ movie.voters.count }}</td>
+                        {% endfor %}
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            {{ form_end(voteForm) }}
+        {% endif %}
 
         <a href="{{ path('movie_new') }}">Proposer un film</a>
     {% endif %}

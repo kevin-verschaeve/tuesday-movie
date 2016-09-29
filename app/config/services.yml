@@ -3,6 +3,10 @@ services:
         class: AppBundle\Manager\SessionManager
         arguments: ['@doctrine']
 
+    app.manager.vote:
+        class: AppBundle\Manager\VoteManager
+        arguments: ['@doctrine']
+
     app.listener.movie:
         class: AppBundle\EventListener\MovieEventListener
         arguments: ['@doctrine', '@session.flash_bag']

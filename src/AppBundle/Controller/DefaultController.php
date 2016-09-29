@@ -49,7 +49,7 @@ class DefaultController extends Controller
         }
         $session = $sessionManager->findCurrentSession();
 
-        $voteForm = $this->createForm(VoteType::class);
+        $voteForm = $this->createForm(VoteType::class, $this->get('app.manager.vote')->prepareVote($request->getClientIp()));
         $voteForm->handleRequest($request);
 
         if ($voteForm->isSubmitted() && $voteForm->isValid()) {
@@ -60,7 +60,6 @@ class DefaultController extends Controller
 
             return $this->redirectToRoute('homepage');
         }
-
 
         return $this->render('default/index.html.twig', [
             'session' => $session,

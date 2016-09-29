@@ -34,7 +34,7 @@ class Vote
     /**
      * @param string $userName
      */
-    public function setUserName(string $userName)
+    public function setUserName(string $userName = null)
     {
         $this->userName = $userName;
     }

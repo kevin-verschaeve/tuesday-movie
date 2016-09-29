@@ -103,6 +103,10 @@ class SessionManager
             throw new \Exception('You cannot vote twice, sorry');
         }
 
+        if ($user) {
+            return $user;
+        }
+
         $user = new User();
         $user->setName($userName);
         $user->setIpAddress($ipAddress);
