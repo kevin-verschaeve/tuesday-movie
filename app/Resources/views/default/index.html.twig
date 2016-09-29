@@ -28,7 +28,7 @@
                     {% for movie in session.movies %}
                         <td width="200px">
                             {% if movie.image is not empty %}
-                                <img src="{{ asset('images/movies/'~movie.image) }}" alt="{{ movie.name }}" style="max-width: 100%">
+                                <img src="{{ asset('images/movies/'~movie.image)|imagine_filter('movie_thumb') }}" alt="{{ movie.name }}" style="max-width: 100%">
                             {% else %}
                             {{ movie.name }}
                             {% endif %}

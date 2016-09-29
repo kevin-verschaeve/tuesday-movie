@@ -74,3 +74,22 @@ vich_uploader:
             uri_prefix: /images/movies
             upload_destination: '%kernel.root_dir%/../web/images/movies'
             namer: vich_uploader.namer_origname
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path: ~
+
+    filter_sets:
+        cache: ~
+        movie_thumb: # the name of the "filter set"
+            quality: 75
+            # list of transformations to apply (the "filters")
+            filters:
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail : { size: [150, 180], mode: outbound }
+
+                # create a 2px black border: center the thumbnail on a black background
+                # 4px larger to create a 2px border around the final image
+                background: { size: [154, 184], position: center, color: '#000000' }
