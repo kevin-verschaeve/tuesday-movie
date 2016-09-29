@@ -49,7 +49,7 @@ class DefaultController extends Controller
         }
         $session = $sessionManager->findCurrentSession();
 
-        $voteForm = $this->createForm(VoteType::class, $this->get('app.manager.vote')->prepareVote($request->getClientIp()));
+        $voteForm = $this->createForm(VoteType::class, $this->get('app.manager.vote')->prepareVote($session, $request->getClientIp()));
         $voteForm->handleRequest($request);
 
         if ($voteForm->isSubmitted() && $voteForm->isValid()) {

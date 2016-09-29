@@ -6,6 +6,7 @@ use AppBundle\Entity\Session;
 use AppBundle\Entity\User;
 use AppBundle\Model\Vote;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class VoteManager
 {
@@ -16,14 +17,27 @@ class VoteManager
         $this->doctrine = $doctrine;
     }
 
-    public function prepareVote(string $ipAddress)
+    public function prepareVote(Session $session, string $ipAddress)
     {
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['ipAddress' => $ipAddress]);
 
         $vote = new Vote();
         $vote->setUserName($user ? $user->getName() : null);
+        $vote->setMovies($this->findMoviesVotedFor($session, $user));
 
         return $vote;
+    }
+
+    public function findMoviesVotedFor(Session $session, User $voter)
+    {
+        $movies = new ArrayCollection();
+        foreach ($session->getMovies() as $movie) {
+            if ($movie->getVoters()->contains($voter)) {
+                $movies->add($movie);
+            }
+        }
+
+        return $movies;
     }
 
     public function resetVotes(Session $session, User $voter)
