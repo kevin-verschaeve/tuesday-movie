@@ -36,6 +36,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -63,3 +65,12 @@ swiftmailer:
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/migrations"
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        movie_image:
+            uri_prefix: /images/movies
+            upload_destination: '%kernel.root_dir%/../web/images/movies'
+            namer: vich_uploader.namer_origname

@@ -5,9 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Movie
 {
@@ -33,6 +36,13 @@ class Movie
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="movie_image", fileNameProperty="image")
+     */
+    private $imageFile;
 
     /**
      * @var string
@@ -113,6 +123,21 @@ class Movie
     public function getImage()
     {
         return $this->image;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     /**

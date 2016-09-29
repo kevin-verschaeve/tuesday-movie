@@ -26,7 +26,13 @@
                     <tr>
                         <td></td>
                     {% for movie in session.movies %}
-                        <td>{{ movie.name }}</td>
+                        <td width="200px">
+                            {% if movie.image is not empty %}
+                                <img src="{{ asset('images/movies/'~movie.image) }}" alt="{{ movie.name }}" style="max-width: 100%">
+                            {% else %}
+                            {{ movie.name }}
+                            {% endif %}
+                        </td>
                     {% endfor %}
                         <td></td>
                     </tr>

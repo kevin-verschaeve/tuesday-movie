@@ -4,7 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Movie;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +15,9 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('image', FileType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+            ])
             ->add('proposedBy', TextType::class)
         ;
     }
