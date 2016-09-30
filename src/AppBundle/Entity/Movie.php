@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -27,6 +28,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -48,6 +50,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="proposed_by", type="string", nullable=false)
+     * @Assert\NotBlank(message="Veuillez renseigner un nom d'utilisateur")
      */
     private $proposedBy;
 

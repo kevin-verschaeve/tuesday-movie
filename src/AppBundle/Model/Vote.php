@@ -5,11 +5,14 @@ namespace AppBundle\Model;
 use AppBundle\Entity\Movie;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Vote
 {
     /**
      * @var string
+     *
+     * @Assert\NotBlank
      */
     private $userName;
 
