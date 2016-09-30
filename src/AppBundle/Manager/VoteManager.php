@@ -23,7 +23,7 @@ class VoteManager
 
         $vote = new Vote();
         $vote->setUserName($user ? $user->getName() : null);
-        $vote->setMovies($this->findMoviesVotedFor($session, $user));
+        $vote->setMovies($user ? $this->findMoviesVotedFor($session, $user) : new ArrayCollection());
 
         return $vote;
     }
