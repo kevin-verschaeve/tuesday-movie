@@ -1,10 +1,13 @@
 FROM php:7-apache
 
 RUN apt-get update && \
-    apt-get install -y libicu-dev libmcrypt-dev libpng-dev libcurl3-dev libxml2-dev libjpeg-dev libpng-dev libssl-dev libjpeg62-turbo-dev && \
+    apt-get install -y git libicu-dev libmcrypt-dev libpng-dev libcurl3-dev libxml2-dev libjpeg-dev libpng-dev libssl-dev libjpeg62-turbo-dev && \
     docker-php-ext-configure intl && \
     docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install mbstring pdo_mysql intl mcrypt gd exif
+    docker-php-ext-install mbstring pdo_mysql intl mcrypt zip gd exif && \
+    curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin && \
+    apt-get clean && \
+    rm -rf /var/lib/lists/*
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY app.conf /etc/apache2/sites-available/app.conf
