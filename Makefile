@@ -1,13 +1,16 @@
 COMPOSE=docker-compose
 RUN=$(COMPOSE) run app
 
-install: build start composer-install migration-migrate
+install: configure build start composer-install migration-migrate
 	@echo "########################################################"
 	@echo "#                                                      #"
 	@echo "# Application disponible ici: http://localhost:8000    #"
 	@echo "# PhpMyAdmin: http://localhost:8001"                   #"
 	@echo "#                                                      #"
 	@echo "########################################################"
+
+configure:
+	cp app/config/parameters.yml.dist app/config/parameters.yml
 
 build:
 	$(COMPOSE) build
