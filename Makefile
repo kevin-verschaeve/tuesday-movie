@@ -1,7 +1,7 @@
 COMPOSE=docker-compose
 RUN=$(COMPOSE) run app
 
-install: configure build start composer-install migration-migrate
+install: configure clean build start composer-install migration-migrate
 	@echo "########################################################"
 	@echo "#                                                      #"
 	@echo "# Application disponible ici: http://localhost:8000    #"
@@ -20,6 +20,11 @@ start:
 
 stop:
 	$(COMPOSE) stop
+
+rm:
+	$(COMPOSE) rm -fv
+
+clean: stop rm
 
 restart: stop start
 
