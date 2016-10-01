@@ -3,20 +3,20 @@ version: "2"
 services:
     app:
         build: docker/server
-        volumes:
-            - .:/var/www/html
         ports:
             - "8080:80"
         env_file:
             - docker/env
+        restart: always
     mysql:
         image: mysql:5.7
         env_file:
             - docker/env
+        restart: always
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
             - "8001:80"
         environment:
             PMA_HOST: mysql
-            PMA_PORT: 3360
+        restart: always

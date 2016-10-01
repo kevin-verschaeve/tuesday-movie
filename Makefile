@@ -1,7 +1,7 @@
 COMPOSE=docker-compose
 RUN=$(COMPOSE) run app
 
-install: configure clean build start composer-install migration-migrate
+install: configure clean build start-env composer-install migration-migrate
 	@echo "########################################################"
 	@echo "#                                                      #"
 	@echo "# Application disponible ici: http://localhost:8000    #"
@@ -26,7 +26,7 @@ rm:
 
 clean: stop rm
 
-restart: stop start
+restart: stop start-env
 
 composer-install:
 	$(RUN) composer install
@@ -36,3 +36,15 @@ migration-diff:
 
 migration-migrate:
 	$(RUN) bin/console doctrine:migrations:migrate --no-interaction
+
+start-env:
+ifdef env
+ifeq "$(env)" "prod"
+	@make start-prod
+endif
+else
+	@make start
+endif
+
+start-prod:
+	$(COMPOSE) -f docker-compose.prod.yml up -d
