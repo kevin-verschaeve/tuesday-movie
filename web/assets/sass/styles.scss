@@ -14,6 +14,11 @@ $light-color: #000;
   word-break: break-word;
 }
 
+.voter-row > td {
+  width: 150px;
+  padding: 10px;
+}
+
 .vote-cell-label {
   width: 100%;
   cursor: pointer;
