@@ -56,6 +56,9 @@ class SessionManager
             ->findOneBy(['date' => $nextMovieDay]);
     }
 
+    /**
+     * @return Session
+     */
     public function findCurrentSession()
     {
         $currentDate = new \DateTime();

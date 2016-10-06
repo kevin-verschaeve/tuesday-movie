@@ -23,7 +23,6 @@ class VoteType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var Session $session */
         $session = $this->sessionManager->findCurrentSession();
         $builder
             ->add('userName', TextType::class, [

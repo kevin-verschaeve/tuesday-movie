@@ -111,10 +111,6 @@ class Session
 
     public function hasVotedForMovie(User $voter, Movie $movie)
     {
-        if ($movie->getProposedBy() === $voter->getName()) {
-            return true;
-        }
-
         return $movie->getVoters()->contains($voter);
     }
 }
