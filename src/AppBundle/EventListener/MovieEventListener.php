@@ -5,6 +5,7 @@ namespace AppBundle\EventListener;
 use AppBundle\Entity\Session;
 use AppBundle\Entity\User;
 use AppBundle\Event\MovieEvent;
+use AppBundle\Manager\SessionManager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
@@ -12,12 +13,12 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 class MovieEventListener implements EventSubscriberInterface
 {
     private $doctrine;
-    private $flashBag;
+    private $sessionManager;
 
-    public function __construct(Registry $doctrine, FlashBag $flashBag)
+    public function __construct(Registry $doctrine, SessionManager $sessionManager)
     {
         $this->doctrine = $doctrine;
-        $this->flashBag = $flashBag;
+        $this->sessionManager = $sessionManager;
     }
     public static function getSubscribedEvents()
     {
@@ -29,9 +30,13 @@ class MovieEventListener implements EventSubscriberInterface
         $movie = $event->getMovie();
         $session = $event->getSession();
 
-        $user = new User();
-        $user->setName($movie->getProposedBy());
-        $user->setIpAddress($event->getClientIp());
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['ipAddress' => $event->getClientIp()]);
+
+        if (!$this->sessionManager->userExistsInSession($session, $user)) {
+            $user = new User();
+            $user->setName($movie->getProposedBy());
+            $user->setIpAddress($event->getClientIp());
+        }
 
         $movie->addVoter($user);
         $session->addMovie($movie);
@@ -39,7 +44,5 @@ class MovieEventListener implements EventSubscriberInterface
         $em = $this->doctrine->getManager();
         $em->persist($session);
         $em->flush();
-
-        $this->flashBag->add('success', 'Film ajouté a la liste');
     }
 }

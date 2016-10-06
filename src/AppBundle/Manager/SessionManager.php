@@ -3,7 +3,9 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Session;
+use AppBundle\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class SessionManager
 {
@@ -81,10 +83,10 @@ class SessionManager
 
     public function findAllVoters(Session $session)
     {
-        $voters = [];
+        $voters = new ArrayCollection();
         foreach ($session->getMovies() as $movie) {
             foreach ($movie->getVoters() as $voter) {
-                if (in_array($voter, $voters)) {
+                if ($voters->contains($voter)) {
                     continue;
                 }
 
@@ -93,5 +95,16 @@ class SessionManager
         }
 
         return $voters;
+    }
+
+    public function userExistsInSession(Session $session, User $user= null)
+    {
+        if (null === $user) {
+            return false;
+        }
+
+        $voters = $this->findAllVoters($session);
+
+        return $voters->contains($user);
     }
 }

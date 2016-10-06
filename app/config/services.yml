@@ -9,7 +9,7 @@ services:
 
     app.listener.movie:
         class: AppBundle\EventListener\MovieEventListener
-        arguments: ['@doctrine', '@session.flash_bag']
+        arguments: ['@doctrine', '@app.manager.session']
         tags:
             - { name: kernel.event_subscriber }
 

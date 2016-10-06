@@ -8,6 +8,7 @@ use AppBundle\Event\MovieEvent;
 use AppBundle\Event\VoteEvent;
 use AppBundle\Form\MovieType;
 use AppBundle\Form\VoteType;
+use AppBundle\Model\Vote;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -80,6 +81,8 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $event = new MovieEvent($form->getData(), $session, $request->getClientIp());
             $this->get('event_dispatcher')->dispatch(MovieEvent::MOVIE_NEW, $event);
+
+            $this->addFlash('success', 'Film ajouté a la liste');
 
             return $this->redirectToRoute('homepage');
         }
