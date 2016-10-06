@@ -1,12 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(movieForm) }}
-        {{ form_row(movieForm.name) }}
-        {{ form_row(movieForm.imageFile) }}
-        {{ form_row(movieForm.proposedBy) }}
-        <input type="submit">
-    {{ form_end(movieForm) }}
-
-    <a href="{{ path('homepage') }}">Retourner sur la page d'accueil</a>
+    <div class="col-md-12">
+        <h3 class="text-center">Proposer un film</h3>
+        {{ form_start(movieForm, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="row form-group">
+            <div class="col-sm-2 col-lg-offset-2 text-right">
+                {{ form_label(movieForm.name, null, {'label_attr': {'class': 'control-label'}}) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(movieForm.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-sm-12">
+                {{ form_errors(movieForm.name) }}
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-2 col-lg-offset-2 text-right">
+                {{ form_label(movieForm.imageFile, null, {'label_attr': {'class': 'control-label'}}) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(movieForm.imageFile, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-sm-12">
+                {{ form_errors(movieForm.imageFile) }}
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-2 col-lg-offset-2 text-right">
+                {{ form_label(movieForm.proposedBy, null, {'label_attr': {'class': 'control-label'}}) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(movieForm.proposedBy, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-sm-12">
+                {{ form_errors(movieForm.proposedBy) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-offset-5">
+                <input type="submit" value="Proposer !" class="btn btn-primary">
+                <a href="{{ path('homepage') }}" class="btn btn-danger">Retourner sur la page d'accueil</a>
+            </div>
+        </div>
+        {{ form_end(movieForm) }}
+    </div>
 {% endblock %}

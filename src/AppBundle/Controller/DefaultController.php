@@ -26,7 +26,6 @@ class DefaultController extends Controller
 
         if (false === $sessionManager->sessionExists($movieDay)) {
             $createSessionForm = $this->createForm(FormType::class);
-            $createSessionForm->add('create', SubmitType::class);
 
             $createSessionForm->handleRequest($request);
 

@@ -5,71 +5,73 @@
 {% endif %}
 
 {% block _vote_movies_widget %}
-    <div class="mabite" {{ block('widget_container_attributes') }}>
-        {%- for child in form %}
-            <td>
+    {%- for child in form %}
+        <td class="text-center">
+            <label class="vote-cell-label" for="{{ child.vars.id }}">
                 {{- form_widget(child) -}}
-                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
-            </td>
-        {% endfor -%}
-    </div>
+            </label>
+        </td>
+    {% endfor -%}
 {% endblock %}
 
 {% block body %}
-    {% if session is defined and session is not null %}
-        {% if session.movies is empty %}
-            <h3>Pas encore de film ! Poposez-en un ci-dessous</h3>
-        {% else %}
-            {{ form_start(voteForm) }}
-            <table>
-                <thead>
+    <div class="col-md-12">
+        {% if session is defined and session is not null %}
+            {% if session.movies is empty %}
+                <h3>Pas encore de film ! :(</h3>
+                <p>Vous pouvez proposer le votre en <a href="{{ path('movie_new') }}">cliquant ici</a></p>
+            {% else %}
+                {{ form_start(voteForm) }}
+                <table>
+                    <thead>
                     <tr>
                         <td></td>
-                    {% for movie in session.movies %}
-                        <td width="200px">
-                            {% if movie.image is not empty %}
-                                <img src="{{ asset('images/movies/'~movie.image)|imagine_filter('movie_thumb') }}" alt="{{ movie.name }}" style="max-width: 100%">
-                            {% else %}
-                            {{ movie.name }}
-                            {% endif %}
-                        </td>
-                    {% endfor %}
+                        {% for movie in session.movies %}
+                            <td class="text-center{% if movie.image is empty %} movie-no-image{% endif %}">
+                                {% if movie.image is not empty %}
+                                    <img src="{{ asset('images/movies/'~movie.image)|imagine_filter('movie_thumb') }}" alt="{{ movie.name }}" style="max-width: 100%">
+                                {% else %}
+                                    {{ movie.name }}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
                         <td></td>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {% for voter in sessionVoters %}
-                        <tr>
-                            <td>{{ voter.name }}</td>
+                        <tr class="voter-row">
+                            <td class="text-center strong italic light">{{ voter.name }}</td>
                             {% for movie in session.movies %}
-                            <td>{{ session.hasVotedForMovie(voter, movie) ? 'X' }}</td>
+                                <td class="text-center voter-vote vote-{{ session.hasVotedForMovie(voter, movie) ? 'yes' : 'no' }}"></td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
                     <tr>
                         <td>
-                            {{ form_widget(voteForm.userName) }}
+                            {{ form_widget(voteForm.userName, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(voteForm.userName) }}
                         </td>
                         {{ form_widget(voteForm.movies) }}
-                        <td><input type="submit"></td>
+                        <td><input type="submit" value="A voter !" class="btn btn-success"></td>
                     </tr>
                     <tr>
                         <td></td>
                         {% for movie in session.movies %}
-                        <td>{{ movie.voters.count }}</td>
+                            <td class="text-center"><span class="vote-total">{{ movie.voters.count }}</span></td>
                         {% endfor %}
                         <td></td>
                     </tr>
-                </tbody>
-            </table>
-            {{ form_end(voteForm) }}
+                    </tbody>
+                </table>
+                {{ form_end(voteForm) }}
+
+                <a href="{{ path('movie_new') }}" class="btn btn-primary">Proposer mon film</a>
+            {% endif %}
         {% endif %}
 
-        <a href="{{ path('movie_new') }}">Proposer un film</a>
-    {% endif %}
-
-    {% if createSessionForm is defined and createSessionForm is not null %}
-        {{ form(createSessionForm) }}
-    {% endif %}
+        {% if createSessionForm is defined and createSessionForm is not null %}
+            {% include ':default:create-session.html.twig' %}
+        {% endif %}
+    </div>
 {% endblock %}

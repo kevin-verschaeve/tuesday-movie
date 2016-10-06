@@ -1,0 +1,37 @@
+@import '_bootstrap';
+
+$film-name-cell-width: 154px; // == size of the image after resizing by liip
+$light-color: #000;
+
+.strong { font-weight: bold; }
+.italic { font-style: italic; }
+.light { color: $light-color; }
+
+.movie-no-image {
+  padding: 10px;
+  width: $film-name-cell-width;
+  max-width: $film-name-cell-width;
+  word-break: break-word;
+}
+
+.vote-cell-label {
+  width: 100%;
+  cursor: pointer;
+}
+
+.vote-yes {
+  background: #aeffb7;
+  &::after {
+    content: "Yep !";
+  }
+}
+.vote-no {
+  background: #ff8e85;
+}
+
+.vote-total {
+  background: #558CAB;
+  color: $light-color;
+  padding: 5px 10px;
+  border-radius: 50%;
+}
