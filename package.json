@@ -1,0 +1,22 @@
+{
+  "description": "Le premier mardi du mois Au mutualāb",
+  "version": "1.0.0",
+  "author": "Kevin Verschaeve",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevin-verschaeve/tuesday-movie.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7"
+  }
+}

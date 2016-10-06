@@ -16,3 +16,5 @@
 /web/bundles/
 /web/images/movies
 /web/media/cache
+node_modules
+web/assets/css
