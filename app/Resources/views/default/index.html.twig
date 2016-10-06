@@ -28,10 +28,9 @@
                         <td></td>
                         {% for movie in session.movies %}
                             <td class="text-center{% if movie.image is empty %} movie-no-image{% endif %}">
+                                <p>{{ movie.name }}</p>
                                 {% if movie.image is not empty %}
-                                    <img src="{{ asset('images/movies/'~movie.image)|imagine_filter('movie_thumb') }}" alt="{{ movie.name }}" style="max-width: 100%">
-                                {% else %}
-                                    {{ movie.name }}
+                                    <img src="{{ asset('images/movies/'~movie.image)|imagine_filter('movie_thumb') }}" alt="{{ movie.name }}" title="{{ movie.name }}" style="max-width: 100%">
                                 {% endif %}
                             </td>
                         {% endfor %}
