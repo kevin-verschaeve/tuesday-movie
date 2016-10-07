@@ -90,7 +90,7 @@ class SessionManager
                     continue;
                 }
 
-                $voters[] = $voter;
+                $voters->add($voter);
             }
         }
 

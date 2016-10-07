@@ -3,38 +3,38 @@
 {% block body %}
     <div class="col-md-12">
         <h3 class="text-center">Proposer un film</h3>
-        {{ form_start(movieForm, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
         <div class="row form-group">
             <div class="col-sm-2 col-lg-offset-2 text-right">
-                {{ form_label(movieForm.name, null, {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_label(form.name, null, {'label_attr': {'class': 'control-label'}}) }}
             </div>
             <div class="col-sm-6">
-                {{ form_widget(movieForm.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="col-sm-12">
-                {{ form_errors(movieForm.name) }}
+                {{ form_errors(form.name) }}
             </div>
         </div>
         <div class="row form-group">
             <div class="col-sm-2 col-lg-offset-2 text-right">
-                {{ form_label(movieForm.imageFile, null, {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_label(form.imageFile, null, {'label_attr': {'class': 'control-label'}}) }}
             </div>
             <div class="col-sm-6">
-                {{ form_widget(movieForm.imageFile, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="col-sm-12">
-                {{ form_errors(movieForm.imageFile) }}
+                {{ form_errors(form.imageFile) }}
             </div>
         </div>
         <div class="row form-group">
             <div class="col-sm-2 col-lg-offset-2 text-right">
-                {{ form_label(movieForm.proposedBy, null, {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_label(form.proposedBy, null, {'label_attr': {'class': 'control-label'}}) }}
             </div>
             <div class="col-sm-6">
-                {{ form_widget(movieForm.proposedBy, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.proposedBy, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="col-sm-12">
-                {{ form_errors(movieForm.proposedBy) }}
+                {{ form_errors(form.proposedBy) }}
             </div>
         </div>
         <div class="row">
@@ -43,6 +43,6 @@
                 <a href="{{ path('homepage') }}" class="btn btn-danger">Retourner sur la page d'accueil</a>
             </div>
         </div>
-        {{ form_end(movieForm) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}

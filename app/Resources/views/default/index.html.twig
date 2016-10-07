@@ -46,7 +46,7 @@
                     <tbody>
                     {% for voter in sessionVoters %}
                         <tr class="voter-row">
-                            <td class="text-center strong italic light">{{ voter.name }}</td>
+                            <td class="text-center strong italic">{{ voter.name }}</td>
                             {% for movie in session.movies %}
                                 <td class="text-center voter-vote vote-{{ session.hasVotedForMovie(voter, movie) ? 'yes' : 'no' }}"></td>
                             {% endfor %}
@@ -63,7 +63,7 @@
                     <tr>
                         <td></td>
                         {% for movie in session.movies %}
-                            <td class="text-center"><span class="vote-total">{{ movie.voters.count }}</span></td>
+                            <td class="text-center"><span class="vote-total light">{{ movie.voters.count }}</span></td>
                         {% endfor %}
                         <td></td>
                     </tr>

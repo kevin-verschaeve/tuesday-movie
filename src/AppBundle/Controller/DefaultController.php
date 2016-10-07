@@ -89,7 +89,7 @@ class DefaultController extends Controller
 
         return $this->render('default/movie.html.twig', [
             'session' => $session,
-            'movieForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }
