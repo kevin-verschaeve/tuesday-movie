@@ -7,6 +7,12 @@ $light-color: #000;
 .italic { font-style: italic; }
 .light { color: $light-color; }
 
+.movie-name {
+  display: block;
+  min-height: 50px;
+  overflow: hidden;
+}
+
 .movie-no-image {
   padding: 10px;
   width: $film-name-cell-width;
