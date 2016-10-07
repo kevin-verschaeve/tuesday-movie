@@ -82,7 +82,7 @@ class DefaultController extends Controller
             $event = new MovieEvent($form->getData(), $session, $request->getClientIp());
             $this->get('event_dispatcher')->dispatch(MovieEvent::MOVIE_NEW, $event);
 
-            $this->addFlash('success', 'Film ajouté a la liste');
+            $this->addFlash('success', 'Film ajouté à la liste');
 
             return $this->redirectToRoute('homepage');
         }

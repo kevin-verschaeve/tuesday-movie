@@ -11,7 +11,7 @@ les films et les avis de tout le monde sans besoin d'une personne dédiée.
 
 Des remarques ?
 =====
-Si vous avez une remaque/evolution à proposer, vous pouvez ouvrir une issue
+Si vous avez une remaque/évolution à proposer, vous pouvez ouvrir une issue
 
 Pour les devs qui souhaitent participer
 =====
@@ -20,7 +20,7 @@ Pour les devs qui souhaitent participer
 - Docker pour le développement (donc nécéssite que docker et docker-compose soient installés)
 - Encore en developpement :wink:
 - Pensez à faire une **pull request plutot que pousser directement sur master** pour que je puise review
-- Si vous modifier le schema de base de données, pensez à faire un `make migration-diff`, puis si tout est ok `make migration-migrate`
+- Si vous modifiez le schema de base de données, pensez à faire un `make migration-diff`, puis si tout est ok `make migration-migrate`
 
 ### Installer le projet
 `make` (prendra un moment lors du premier lancement, puis très rapide pour les suivants)
