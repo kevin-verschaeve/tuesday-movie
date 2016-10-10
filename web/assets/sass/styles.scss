@@ -9,8 +9,8 @@ $light-color: #FFF;
 
 .movie-name {
   display: block;
-  min-height: 50px;
-  overflow: hidden;
+  height: 50px;
+  overflow: auto;
 }
 
 .movie-no-image {
