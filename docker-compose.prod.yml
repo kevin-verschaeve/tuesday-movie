@@ -7,11 +7,15 @@ services:
             - "8080:80"
         env_file:
             - docker/env
+        environment:
+            SYMFONY_ENV: prod
         restart: always
     mysql:
         image: mysql:5.7
         env_file:
             - docker/env
+        volumes:
+            - /usr/local/backup:/var/lib/mysql
         restart: always
     phpmyadmin:
         image: phpmyadmin/phpmyadmin

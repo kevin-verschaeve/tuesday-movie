@@ -1,5 +1,8 @@
 version: "2"
 
+networks:
+    app:
+
 services:
     app:
         build: docker/server
@@ -9,17 +12,27 @@ services:
             - "8080:80"
         env_file:
             - docker/env
+        networks:
+            - app
     mysql:
         image: mysql:5.7
         env_file:
             - docker/env
+        volumes:
+            - /usr/local/backup:/var/lib/mysql
+        networks:
+            - app
     front:
         build: docker/front
         volumes:
             - .:/src
+        networks:
+            - app
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
             - "8001:80"
         environment:
             PMA_HOST: mysql
+        networks:
+            - app

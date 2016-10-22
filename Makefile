@@ -3,13 +3,7 @@ RUN=$(COMPOSE) run --rm app
 FRONT=$(COMPOSE) run --rm front
 NPM=$(FRONT) npm
 
-install: configure clean build start-env composer-install front-install migration-migrate
-	@echo "########################################################"
-	@echo "#                                                      #"
-	@echo "# Application disponible ici: http://localhost:8000    #"
-	@echo "# PhpMyAdmin: http://localhost:8001"                   #"
-	@echo "#                                                      #"
-	@echo "########################################################"
+install: configure build start-env composer-install front-install migration-migrate
 
 configure:
 	cp app/config/parameters.yml.dist app/config/parameters.yml
@@ -24,7 +18,7 @@ stop:
 	$(COMPOSE) stop
 
 rm:
-	$(COMPOSE) rm -fv
+	$(COMPOSE) rm -fv app front phpmyadmin
 
 clean: stop rm
 
@@ -48,6 +42,7 @@ migration-diff:
 	$(RUN) bin/console doctrine:migrations:diff
 
 migration-migrate:
+	$(RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
 	$(RUN) bin/console doctrine:migrations:migrate --no-interaction
 
 start-env:
@@ -61,3 +56,6 @@ endif
 
 start-prod:
 	$(COMPOSE) -f docker-compose.prod.yml up -d
+
+cc:
+	$(RUN) bin/console c:c
