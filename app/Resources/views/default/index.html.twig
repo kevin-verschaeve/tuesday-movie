@@ -17,7 +17,7 @@
 {% block body %}
     <div class="col-md-12">
         {% if session is defined and session is not null %}
-            <h2>Prochaine séance ciné au mutualab: le mardi <strong>{{ session.date|date('d/m/Y') }}</strong></h2>
+            <h2 class="well">Prochaine séance ciné au mutualab: le mardi <strong>{{ session.date|date('d/m/Y') }}</strong></h2>
 
             <div class="infos">
                 <p>Votez pour le film qui vous intéresse ou proposez le votre.</p>
@@ -27,7 +27,7 @@
                 <h3>Pas encore de film ! :(</h3>
                 <p>Vous pouvez proposer le votre en <a href="{{ path('movie_new') }}">cliquant ici</a></p>
             {% else %}
-                {{ form_start(voteForm) }}
+                {{ form_start(voteForm, {'attr': {'class': 'form-horizontal'}}) }}
                 <table>
                     <thead>
                     <tr>
@@ -71,7 +71,7 @@
                 </table>
                 {{ form_end(voteForm) }}
 
-                <a href="{{ path('movie_new') }}" class="btn btn-primary">Proposer mon film</a>
+                <a href="{{ path('movie_new') }}" class="btn btn-primary btn-propose">Proposer mon film</a>
             {% endif %}
         {% endif %}
     </div>

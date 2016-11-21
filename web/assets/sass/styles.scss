@@ -1,11 +1,23 @@
 @import '_bootstrap';
 
-$film-name-cell-width: 154px; // == size of the image after resizing by liip
+@font-face {
+  font-family: 'StarJedi';
+  src: url(../fonts/StarJedi.ttf);
+}
+
+$movie-name-cell-width: 154px; // == size of the image after resizing by liip
 $light-color: #FFF;
+$jediFont: 'StarJedi';
 
 .strong { font-weight: bold; }
 .italic { font-style: italic; }
 .light { color: $light-color; }
+
+h1 {
+  font-weight: bold;
+  font-size: 6em;
+  font-family: $jediFont;
+}
 
 .movie-name {
   display: block;
@@ -15,8 +27,8 @@ $light-color: #FFF;
 
 .movie-no-image {
   padding: 10px;
-  width: $film-name-cell-width;
-  max-width: $film-name-cell-width;
+  width: $movie-name-cell-width;
+  max-width: $movie-name-cell-width;
   word-break: break-word;
 }
 
@@ -32,7 +44,7 @@ $light-color: #FFF;
 
 .vote-yes {
   background: #aeffb7;
-  &::after {
+  &:after {
     content: "Yep !";
   }
 }
@@ -45,4 +57,49 @@ $light-color: #FFF;
   color: $light-color;
   padding: 5px 10px;
   border-radius: 50%;
+}
+
+.btn-propose {
+  margin-top: 30px;
+}
+
+input[type="submit"],
+a.btn {
+  padding: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-radius: 0;
+  border-bottom: 4px solid;
+}
+
+a.btn {
+  border-bottom-color: darken(#286090, 10%);
+}
+
+input[type="submit"] {
+  border-bottom-color: darken(#4cae4c, 30%);
+}
+
+.form-control {
+  padding: 25px;
+  border: 0;
+  box-shadow: 0 0 2px black;
+  border-radius: 0;
+}
+
+.control-label {
+  margin-top: 15px;
+}
+
+input[type="file"] {
+  padding: 25px 0;
+}
+
+label {
+  &.required {
+    &:after {
+      content: ' *';
+    }
+  }
 }
