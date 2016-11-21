@@ -15,8 +15,7 @@ RUN apt-get update && \
         libpng-dev \
         libssl-dev \
         libjpeg62-turbo-dev && \
-    docker-php-ext-configure intl && \
-    docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure intl gd --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install mbstring pdo_mysql intl mcrypt zip gd exif && \
     curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin && \
     apt-get clean && \

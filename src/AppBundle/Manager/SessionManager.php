@@ -97,7 +97,7 @@ class SessionManager
         return $voters;
     }
 
-    public function userExistsInSession(Session $session, User $user= null)
+    public function userExistsInSession(Session $session, User $user = null)
     {
         if (null === $user) {
             return false;

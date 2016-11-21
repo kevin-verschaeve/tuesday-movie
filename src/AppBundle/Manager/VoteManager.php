@@ -49,9 +49,7 @@ class VoteManager
 
     public function findOrCreateVoter(string $userName, string $ipAddress)
     {
-        $user = $this->doctrine->getRepository(User::class)->findOneBy([
-            'ipAddress' => $ipAddress,
-        ]);
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['ipAddress' => $ipAddress]);
 
         if ($user) {
             return $user;
