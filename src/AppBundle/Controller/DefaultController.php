@@ -26,26 +26,12 @@ class DefaultController extends Controller
         $movieDay = $sessionManager->findFirstTuesdayOfMonth($sessionManager->findCurrentMonth(), true);
 
         if (false === $sessionManager->sessionExists($movieDay)) {
-            $createSessionForm = $this->createForm(FormType::class);
+            $session = new Session();
+            $session->setDate($movieDay);
 
-            $createSessionForm->handleRequest($request);
-
-            if ($createSessionForm->isSubmitted() && $createSessionForm->isValid()) {
-                $session = new Session();
-                $session->setDate($movieDay);
-
-                $em = $this->getDoctrine()->getManagerForClass(Session::class);
-                $em->persist($session);
-                $em->flush();
-
-                $this->addFlash('success', 'Session créée avec succès');
-
-                return $this->redirectToRoute('homepage');
-            }
-
-            return $this->render('default/index.html.twig', [
-                'createSessionForm' => $createSessionForm->createView()
-            ]);
+            $em = $this->getDoctrine()->getManagerForClass(Session::class);
+            $em->persist($session);
+            $em->flush();
         }
         $session = $sessionManager->findCurrentSession();
 

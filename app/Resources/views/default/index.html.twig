@@ -74,9 +74,5 @@
                 <a href="{{ path('movie_new') }}" class="btn btn-primary">Proposer mon film</a>
             {% endif %}
         {% endif %}
-
-        {% if createSessionForm is defined and createSessionForm is not null %}
-            {% include ':default:create-session.html.twig' %}
-        {% endif %}
     </div>
 {% endblock %}
